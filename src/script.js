@@ -110,3 +110,81 @@ function createBookCard(book) {
 
   return bookCard;
 }
+
+// Handle form submission
+function handleFormSubmit(event) {
+  event.preventDefault();
+
+  // Get form values
+  const title = document.getElementById("title").value.trim();
+  const author = document.getElementById("author").value.trim();
+  const pages = parseInt(document.getElementById("pages").value);
+  const genre = document.getElementById("genre").value.trim();
+  const read = document.getElementById("read").checked;
+
+  // Validate fields
+  if (!title || !author || !pages) {
+    alert("Please fill in all required fields (Title, Author, and Pages)");
+    return;
+  }
+
+  // Add book to library
+  addBookToLibrary(title, author, pages, genre, read);
+
+  // Reset form
+  document.getElementById("book-form").reset();
+
+  // Close modal
+  document.getElementById("book-form-modal").close();
+
+  // Update display
+  displayBooks();
+}
+
+// Remove book
+function handleRemoveBook(event) {
+  if (!event.target.closest(".remove-btn")) return;
+
+  const bookId = event.target.closest(".remove-btn").dataset.bookId;
+
+  // Confirm deletion
+  if (confirm("Are you sure you want to remove this book from your library?")) {
+    // Remove book
+    const removed = removeBookFromLibrary(bookId);
+
+    if (removed) {
+      // Update display
+      displayBooks();
+    }
+  }
+}
+
+// Handle toggle read
+function handleToggleReadStatus(event) {
+  if (!event.target.closest(".toggle-read-btn")) return;
+
+  const bookId = event.target.closest(".toggle-read-btn").dataset.bookId;
+
+  // Find book in library
+  const book = myLibrary.find((book) => book.id === bookId);
+
+  if (book) {
+    // Toggle read
+    book.toggleReadStatus();
+
+    // Update display
+    displayBooks();
+  }
+}
+
+// Add sample books
+function initializeSampleBooks() {
+  // Add sample books to library
+  addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, "Fantasy", true);
+  addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, "Fiction", true);
+  addBookToLibrary("1984", "George Orwell", 328, "Dystopian", false);
+  addBookToLibrary("Pride and Prejudice", "Jane Austen", 432, "Classic", true);
+
+  // Display initial books
+  displayBooks();
+}
