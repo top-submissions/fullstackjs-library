@@ -16,7 +16,7 @@ class Book {
   }
 
   get formattedAuthor() {
-    rturn`By ${this.author}`;
+    return `By ${this.author}`;
   }
 
   get statusText() {
@@ -36,7 +36,7 @@ class Book {
   static createFromForm(formData) {
     const title = formData.get("title").trim();
     const author = formData.get("author").trim();
-    const pages = parstInt(formData.get("pages"));
+    const pages = parseInt(formData.get("pages"));
     const genre = formData.get("genre").trim();
     const read = formData.get("read") === "on";
 
