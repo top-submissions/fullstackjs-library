@@ -43,3 +43,63 @@ class Book {
     return new Book(title, author, pages, genre, read);
   }
 }
+
+class Library {
+  #books = [];
+
+  constructor() {
+    this.#books = [];
+  }
+
+  // Getters
+  get bookCount() {
+    return this.#books.length;
+  }
+
+  get isEmpty() {
+    return this.#books.length === 0;
+  }
+
+  get books() {
+    return [...this.#books];
+  }
+
+  // Methods
+  addBook(book) {
+    this.#books.push(book);
+    return book;
+  }
+
+  removeBook(bookId) {
+    const initialLength = this.#books.length;
+    this.#books = this.#books.filter((book) => book.id !== bookId);
+    return this.#books.length < initialLength;
+  }
+
+  findBookById(bookId) {
+    return this.#books.find((book) => book.id === bookId);
+  }
+
+  getBooksByAuthor(author) {
+    return this.#books.filter((book) => {
+      book.author.toLowerCase().includes(author.toLowerCase())
+    });
+  }
+
+  get readBooks() {
+    return this.#books.filter((book) => book.read);
+  }
+
+  get unreadBooks() {
+    return this.#books.filter((book) => !book.read);
+  }
+
+  get totalPages() {
+    return this.#books.reduce((total, book) => total + book.pages, 0);
+  }
+
+  clear() {
+    this.#books = [];
+  }
+}
+
