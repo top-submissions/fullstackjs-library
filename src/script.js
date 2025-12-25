@@ -81,9 +81,9 @@ class Library {
   }
 
   getBooksByAuthor(author) {
-    return this.#books.filter((book) => {
+    return this.#books.filter((book) =>
       book.author.toLowerCase().includes(author.toLowerCase())
-    });
+    );
   }
 
   get readBooks() {
