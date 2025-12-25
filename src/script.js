@@ -265,3 +265,56 @@ function initializeSampleBooks() {
   // Display initial books
   displayBooks();
 }
+
+/*=================
+ ** Event Listeners
+ **/
+
+// DOM Content Loaded
+document.addEventListener("DOMContentLoaded", () => {
+  // Get DOM elements
+  const newBookBtn = document.getElementById("new-book-btn");
+  const bookFormModal = document.getElementById("book-form-modal");
+  const closeModalBtn = document.getElementById("close-modal");
+  const cancelFormBtn = document.getElementById("cancel-form");
+  const bookForm = document.getElementById("book-form");
+  const booksContainer = document.getElementById("books-container");
+
+  /*=================
+   ** Event Listeners
+   **/
+
+  // Add New Book button clicked
+  newBookBtn.addEventListener("click", () => {
+    bookFormModal.showModal();
+  });
+
+  // Close button clicked
+  closeModalBtn.addEventListener("click", () => {
+    bookFormModal.close();
+  });
+
+  // Cancel button clicked
+  cancelFormBtn.addEventListener("click", () => {
+    bookFormModal.close();
+  });
+
+  // Click outside of modal
+  bookFormModal.addEventListener("click", (event) => {
+    if (event.target === bookFormModal) {
+      bookFormModal.close();
+    }
+  });
+
+  // Handle form submission
+  bookForm.addEventListener("submit", handleFormSubmit);
+
+  // Handle remove book
+  booksContainer.addEventListener("click", handleRemoveBook);
+
+  // Handle toggle read
+  booksContainer.addEventListener("click", handleToggleReadStatus);
+
+  // Add sample books
+  initializeSampleBooks();
+});
